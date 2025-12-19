@@ -1,0 +1,41 @@
+export const topics = [
+  { id: 'javascript', name: 'JavaScript', nameHi: 'जावास्क्रिप्ट', icon: '🟨', color: '#b45309', bg: '#fef3c7' },
+  { id: 'dsa', name: 'DSA', nameHi: 'DSA', icon: '🧮', color: '#4f46e5', bg: '#e0e7ff' },
+  { id: 'git', name: 'Git & Version Control', nameHi: 'Git & वर्शन कंट्रोल', icon: '🔀', color: '#dc2626', bg: '#fee2e2' },
+  { id: 'nodejs', name: 'Node.js', nameHi: 'Node.js', icon: '🟢', color: '#15803d', bg: '#dcfce7' },
+  { id: 'expressjs', name: 'Express.js', nameHi: 'Express.js', icon: '⚡', color: '#374151', bg: '#f3f4f6' },
+  { id: 'api', name: 'API Development', nameHi: 'API डेवलपमेंट', icon: '🔌', color: '#0369a1', bg: '#e0f2fe' },
+  { id: 'database', name: 'SQL + MongoDB', nameHi: 'SQL + MongoDB', icon: '🗄️', color: '#16a34a', bg: '#dcfce7' },
+  { id: 'db-design', name: 'Database Design', nameHi: 'डेटाबेस डिज़ाइन', icon: '📐', color: '#7c3aed', bg: '#ede9fe' },
+  { id: 'auth', name: 'Auth & Security Hardening', nameHi: 'ऑथ & सिक्योरिटी हार्डनिंग', icon: '🔐', color: '#be123c', bg: '#ffe4e6' },
+  { id: 'validation', name: 'API Validation & Error Handling', nameHi: 'API वैलिडेशन & एरर हैंडलिंग', icon: '🛡️', color: '#b91c1c', bg: '#fee2e2' },
+  { id: 'pagination', name: 'Pagination, Filtering & Search', nameHi: 'पेजिनेशन, फ़िल्टरिंग & सर्च', icon: '📄', color: '#0f766e', bg: '#ccfbf1' },
+  { id: 'file-upload', name: 'File Upload System', nameHi: 'फाइल अपलोड सिस्टम', icon: '📎', color: '#9333ea', bg: '#f3e8ff' },
+  { id: 'websocket', name: 'WebSocket', nameHi: 'वेबसॉकेट', icon: '🔄', color: '#047857', bg: '#d1fae5' },
+  { id: 'mqtt', name: 'MQTT', nameHi: 'MQTT', icon: '📡', color: '#7e22ce', bg: '#f3e8ff' },
+  { id: 'system-design', name: 'System Design (Monolith/Modular/Micro)', nameHi: 'सिस्टम डिज़ाइन', icon: '🏗️', color: '#b45309', bg: '#fef3c7' },
+  { id: 'linux', name: 'Linux', nameHi: 'लिनक्स', icon: '🐧', color: '#854d0e', bg: '#fef9c3' },
+  { id: 'env-config', name: 'Environment & Config Management', nameHi: 'एनवायरनमेंट & कॉन्फ़िग', icon: '⚙️', color: '#525252', bg: '#f5f5f5' },
+  { id: 'nginx-pm2', name: 'Nginx & PM2', nameHi: 'Nginx & PM2', icon: '🌐', color: '#047857', bg: '#d1fae5' },
+  { id: 'docker', name: 'Docker', nameHi: 'डॉकर', icon: '🐳', color: '#1d4ed8', bg: '#dbeafe' },
+  { id: 'cicd', name: 'CI/CD', nameHi: 'CI/CD', icon: '🔁', color: '#c2410c', bg: '#ffedd5' },
+  { id: 'aws', name: 'AWS Cloud', nameHi: 'AWS क्लाउड', icon: '☁️', color: '#b45309', bg: '#fff7ed' },
+  { id: 'bg-jobs', name: 'Background Jobs & Queue', nameHi: 'बैकग्राउंड जॉब्स & क्यू', icon: '⏱️', color: '#0369a1', bg: '#e0f2fe' },
+  { id: 'testing', name: 'Testing', nameHi: 'टेस्टिंग', icon: '🧪', color: '#15803d', bg: '#dcfce7' },
+  { id: 'logging', name: 'Logging & Monitoring', nameHi: 'लॉगिंग & मॉनिटरिंग', icon: '📊', color: '#6d28d9', bg: '#ede9fe' },
+  { id: 'debugging', name: 'Debugging', nameHi: 'डीबगिंग', icon: '🔍', color: '#b45309', bg: '#fef3c7' },
+  { id: 'api-docs', name: 'API Documentation', nameHi: 'API डॉक्यूमेंटेशन', icon: '📝', color: '#4338ca', bg: '#e0e7ff' },
+  { id: 'patterns', name: 'Design Patterns', nameHi: 'डिज़ाइन पैटर्न्स', icon: '🧩', color: '#be185d', bg: '#fce7f3' },
+  { id: 'clean-code', name: 'Clean Code', nameHi: 'क्लीन कोड', icon: '✨', color: '#0369a1', bg: '#e0f2fe' },
+  { id: 'react', name: 'React.js', nameHi: 'React.js', icon: '⚛️', color: '#0e7490', bg: '#cffafe' },
+  // Phase 4 (Bonus)
+  { id: 'typescript', name: 'TypeScript', nameHi: 'टाइपस्क्रिप्ट', icon: '🔷', color: '#2563eb', bg: '#dbeafe' },
+  { id: 'graphql', name: 'GraphQL', nameHi: 'GraphQL', icon: '◈', color: '#be185d', bg: '#fce7f3' },
+  { id: 'microservices', name: 'Microservices', nameHi: 'माइक्रोसर्विसेज़', icon: '🔗', color: '#7c3aed', bg: '#ede9fe' },
+  { id: 'message-queue', name: 'Message Queues', nameHi: 'मैसेज क्यू', icon: '📬', color: '#0891b2', bg: '#cffafe' },
+  { id: 'kubernetes', name: 'Kubernetes', nameHi: 'कुबरनेट्स', icon: '☸️', color: '#326ce5', bg: '#dbeafe' },
+];
+
+export function getTopicById(id) {
+  return topics.find(t => t.id === id);
+}
