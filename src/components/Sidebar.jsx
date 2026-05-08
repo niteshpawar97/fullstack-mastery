@@ -77,6 +77,7 @@ function Sidebar({
       <div className="flex flex-col gap-0.5 px-2 py-1.5 shrink-0">
         {[
           { view: 'welcome', icon: '🏠', label: showEn ? 'Home' : 'होम' },
+          { view: 'tracks', icon: '📚', label: showEn ? 'Learning Tracks' : 'लर्निंग ट्रैक्स' },
           { view: 'plan', icon: '📅', label: showEn ? 'Teaching Plan' : 'टीचिंग प्लान' },
           { view: 'downloads', icon: '📥', label: showEn ? 'Download PDFs' : 'PDF डाउनलोड' },
         ].map(btn => (

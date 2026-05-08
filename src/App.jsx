@@ -3,8 +3,10 @@ import Sidebar from './components/Sidebar';
 import Content from './components/Content';
 import TeachingPlan from './components/TeachingPlan';
 import Downloads from './components/Downloads';
+import Tracks from './components/Tracks';
 import { phases, days, allSessions, getPhaseForDay } from './data/course';
 import { topics } from './data/topics';
+import { tracks } from './data/tracks';
 import { getProgress, markComplete, unmarkComplete, getTheme, setTheme as saveTheme, getCompletedCount, isDayComplete } from './utils/storage';
 
 function App() {
@@ -106,6 +108,14 @@ function App() {
         return <TeachingPlan phases={phases} days={days} lang={lang} dark={dark} progress={progress} />;
       case 'downloads':
         return <Downloads phases={phases} days={days} lang={lang} dark={dark} />;
+      case 'tracks':
+        return (
+          <Tracks
+            lang={lang}
+            dark={dark}
+            onSwitchToFullStack={() => handleViewChange('welcome')}
+          />
+        );
       default:
         return (
           <WelcomePage
@@ -301,6 +311,53 @@ function WelcomePage({ lang, dark, onSelectSession, onViewChange, completedDays,
                     {showEn ? phase.description.en : phase.description.hi}
                   </p>
                 </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Other Learning Tracks */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className={sectionTitle.replace('mb-3', 'mb-0')}>📚 {showEn ? 'Other Learning Tracks' : 'अन्य लर्निंग ट्रैक्स'}</h2>
+          <button
+            className="text-xs font-semibold text-indigo-500 hover:text-indigo-600 cursor-pointer border-0 bg-transparent"
+            onClick={() => onViewChange('tracks')}
+          >
+            {showEn ? 'View All →' : 'सब देखो →'}
+          </button>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+          {tracks.filter(t => t.id !== 'fullstack').slice(0, 4).map(track => {
+            const isSoon = track.status === 'soon';
+            const isAvailable = track.status === 'available';
+            return (
+              <div
+                key={track.id}
+                className={`rounded-lg border-2 p-3 transition-all ${cardBg} ${isSoon ? 'opacity-60' : 'hover:-translate-y-0.5 hover:shadow-md cursor-pointer'}`}
+                style={{ borderColor: isSoon ? undefined : track.color }}
+                onClick={isSoon ? undefined : () => onViewChange('tracks')}
+              >
+                <div className="flex items-start justify-between mb-1">
+                  <span className="text-2xl">{track.icon}</span>
+                  {isAvailable ? (
+                    <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 font-bold uppercase tracking-wider">
+                      {showEn ? 'New' : 'नया'}
+                    </span>
+                  ) : (
+                    <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-slate-500/20 text-slate-400 font-bold uppercase tracking-wider">
+                      {showEn ? 'Soon' : 'जल्द'}
+                    </span>
+                  )}
+                </div>
+                <h4 className={`font-bold text-sm ${textPrimary}`}>{showEn ? track.title : track.titleHi}</h4>
+                <p className={`text-[0.7rem] mt-1 line-clamp-2 ${textMuted}`}>{showEn ? track.tagline.en : track.tagline.hi}</p>
+                {track.duration && (
+                  <p className="text-[0.65rem] mt-2 font-semibold" style={{ color: track.color }}>
+                    📅 {track.duration.days} {showEn ? 'days' : 'दिन'}
+                  </p>
+                )}
               </div>
             );
           })}
