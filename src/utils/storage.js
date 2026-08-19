@@ -1,5 +1,6 @@
 const PROGRESS_KEY = 'fsm-progress';
 const THEME_KEY = 'fsm-theme';
+const ONBOARD_KEY = 'fsm-onboard-track';
 
 export function getProgress() {
   try {
@@ -42,4 +43,18 @@ export function getTheme() {
 
 export function setTheme(theme) {
   localStorage.setItem(THEME_KEY, theme);
+}
+
+export function getOnboardedTrack() {
+  try {
+    return localStorage.getItem(ONBOARD_KEY) || null;
+  } catch { return null; }
+}
+
+export function setOnboardedTrack(trackId) {
+  localStorage.setItem(ONBOARD_KEY, trackId);
+}
+
+export function clearOnboardedTrack() {
+  localStorage.removeItem(ONBOARD_KEY);
 }

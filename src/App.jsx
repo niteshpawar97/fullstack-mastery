@@ -4,13 +4,16 @@ import Content from './components/Content';
 import TeachingPlan from './components/TeachingPlan';
 import Downloads from './components/Downloads';
 import Tracks from './components/Tracks';
+import Onboarding from './components/Onboarding';
 import { phases, days, allSessions, getPhaseForDay } from './data/course';
 import { topics } from './data/topics';
 import { tracks } from './data/tracks';
-import { getProgress, markComplete, unmarkComplete, getTheme, setTheme as saveTheme, getCompletedCount, isDayComplete } from './utils/storage';
+import { getProgress, markComplete, unmarkComplete, getTheme, setTheme as saveTheme, getCompletedCount, isDayComplete, getOnboardedTrack, setOnboardedTrack, clearOnboardedTrack } from './utils/storage';
 
 function App() {
-  const [activeView, setActiveView] = useState('welcome');
+  const [onboardedTrack, setOnboardedTrackState] = useState(() => getOnboardedTrack());
+  const [activeView, setActiveView] = useState(() => (getOnboardedTrack() ? 'welcome' : 'onboarding'));
+  const [initialTrackId, setInitialTrackId] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedSession, setSelectedSession] = useState(null);
   const [lang, setLang] = useState('both');
@@ -64,6 +67,27 @@ function App() {
     if (isMobile) setSidebarOpen(false);
   };
 
+  const handleSelectTrack = (trackId) => {
+    setOnboardedTrack(trackId);
+    setOnboardedTrackState(trackId);
+    if (trackId === 'fullstack') {
+      handleViewChange('welcome');
+    } else {
+      setInitialTrackId(trackId);
+      handleViewChange('tracks');
+    }
+  };
+
+  const handleChangeTrack = () => {
+    clearOnboardedTrack();
+    setOnboardedTrackState(null);
+    setInitialTrackId(null);
+    setActiveView('onboarding');
+    setSelectedDay(null);
+    setSelectedSession(null);
+    if (isMobile) setSidebarOpen(false);
+  };
+
   const handleToggleComplete = (day, session) => {
     const key = `${day}-${session}`;
     if (progress[key]) {
@@ -89,6 +113,15 @@ function App() {
 
   const renderContent = () => {
     switch (activeView) {
+      case 'onboarding':
+        return (
+          <Onboarding
+            lang={lang}
+            dark={dark}
+            setLang={setLang}
+            onSelectTrack={handleSelectTrack}
+          />
+        );
       case 'content':
         return currentContent ? (
           <Content
@@ -113,6 +146,7 @@ function App() {
           <Tracks
             lang={lang}
             dark={dark}
+            initialTrackId={initialTrackId}
             onSwitchToFullStack={() => handleViewChange('welcome')}
           />
         );
@@ -130,6 +164,10 @@ function App() {
     }
   };
 
+  if (activeView === 'onboarding') {
+    return renderContent();
+  }
+
   return (
     <>
       <Sidebar
@@ -143,6 +181,8 @@ function App() {
         selectedSession={selectedSession}
         onSelectSession={handleSelectSession}
         onViewChange={handleViewChange}
+        onChangeTrack={handleChangeTrack}
+        currentTrackId={onboardedTrack}
         activeView={activeView}
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}

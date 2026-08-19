@@ -1,17 +1,19 @@
 import { useState, useMemo } from 'react';
 import { getTopicById } from '../data/topics';
 import { isComplete, isDayComplete } from '../utils/storage';
+import { getTrackById } from '../data/tracks';
 
 function Sidebar({
   phases, days, lang, setLang, dark, setDark,
   selectedDay, selectedSession,
-  onSelectSession, onViewChange, activeView,
+  onSelectSession, onViewChange, onChangeTrack, currentTrackId, activeView,
   isOpen, onToggle, progress
 }) {
   const [expandedPhase, setExpandedPhase] = useState('phase-1');
   const [expandedWeek, setExpandedWeek] = useState(null);
 
   const showEn = lang === 'both' || lang === 'en';
+  const currentTrack = currentTrackId ? getTrackById(currentTrackId) : null;
 
   // Group days by phase and week
   const phaseWeeks = useMemo(() => {
@@ -187,8 +189,21 @@ function Sidebar({
       </nav>
 
       {/* Footer */}
-      <div className="px-4 py-3 border-t border-white/10 text-center text-[0.65rem] opacity-40 shrink-0">
-        Made for Teaching 🎓
+      <div className="px-3 py-3 border-t border-white/10 shrink-0">
+        {currentTrack && onChangeTrack && (
+          <button
+            className="flex items-center justify-between w-full px-2.5 py-2 rounded-lg text-[0.72rem] font-medium cursor-pointer border-0 bg-white/5 hover:bg-white/10 transition-all text-left mb-2"
+            onClick={onChangeTrack}
+            title={showEn ? 'Change learning track' : 'लर्निंग track बदलो'}
+          >
+            <span className="flex items-center gap-1.5 min-w-0 text-slate-300">
+              <span>{currentTrack.icon}</span>
+              <span className="truncate">{showEn ? currentTrack.title : currentTrack.titleHi}</span>
+            </span>
+            <span className="text-indigo-400 shrink-0 ml-1">🔄</span>
+          </button>
+        )}
+        <p className="text-center text-[0.65rem] opacity-40">Made for Teaching 🎓</p>
       </div>
     </aside>
   );
