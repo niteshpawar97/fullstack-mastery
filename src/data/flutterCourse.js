@@ -8,6 +8,11 @@ export function getFlutterContent(day) {
   return flutterContent[key] || `# Day ${day} — Coming Soon\n\nIs din ka detailed content jaldi aane wala hai. Roadmap me topic already define hai — content writing in progress.`;
 }
 
+export function hasFlutterContent(day) {
+  const padded = String(day).padStart(3, '0');
+  return `./content/flutter/day-${padded}.md` in flutterContent;
+}
+
 // Single session per day — 2 hours total (1 hr concept + 1 hr practice in one flow).
 export const flutterDays = [
   // Phase 1: Basic — Dart + Flutter Setup (Day 1-10)

@@ -217,6 +217,148 @@ export const tracks = [
     ]
   },
   {
+    id: 'android',
+    title: 'Android with Java',
+    titleHi: 'एंड्रॉइड विद जावा',
+    icon: '🤖',
+    color: '#3DDC84',
+    status: 'available',
+    tagline: {
+      en: '0 to Hero in 7 Full Days — Java, Android Studio, MVVM, Retrofit, Room, WorkManager. Build a real Smart Meter app.',
+      hi: '7 पूरे दिनों में 0 से Hero — Java, Android Studio, MVVM, Retrofit, Room, WorkManager। एक असली Smart Meter app बनाओ।'
+    },
+    duration: { days: 7, hours: 56, hoursPerDay: 8 },
+    sessions: 7,
+    topics: 126,
+    audience: {
+      en: 'For learners who know basic programming and want to become job-ready Android (Java) developers in 7 intensive full-day sessions',
+      hi: 'Jo basic programming jaante hain aur 7 intensive full-day sessions me job-ready Android (Java) developer बनना चाहते हैं'
+    },
+    phases: [
+      {
+        id: 'android-day-1',
+        title: 'Day 1: Java + OOPs Foundations',
+        titleHi: 'Day 1: Java + OOPs की नींव',
+        icon: '📗',
+        color: '#4CAF50',
+        dayRange: [1, 1],
+        description: {
+          en: 'Java core — arrays, collections (ArrayList, HashMap), strings, exception handling — then complete OOP: classes, constructors, encapsulation, inheritance, polymorphism, abstraction, interfaces, and this/super/static/final.',
+          hi: 'Java core — arrays, collections (ArrayList, HashMap), strings, exception handling — फिर complete OOP: classes, constructors, encapsulation, inheritance, polymorphism, abstraction, interfaces, और this/super/static/final।'
+        },
+        topics: ['Java Basics', 'Array', 'ArrayList', 'HashMap', 'String', 'Exception Handling', 'Class & Object', 'Constructor', 'Encapsulation', 'Inheritance', 'Polymorphism', 'Overloading vs Overriding', 'Abstraction', 'Interface vs Abstract Class', 'this, super, static, final']
+      },
+      {
+        id: 'android-day-2',
+        title: 'Day 2: Android Core + UI',
+        titleHi: 'Day 2: Android Core + UI',
+        icon: '🎨',
+        color: '#2196F3',
+        dayRange: [2, 2],
+        description: {
+          en: 'Android project structure, AndroidManifest, Activity + full lifecycle, Intents (explicit/implicit/extras), and XML UI building blocks with View Binding.',
+          hi: 'Android project structure, AndroidManifest, Activity + full lifecycle, Intents (explicit/implicit/extras), और XML UI building blocks View Binding के साथ।'
+        },
+        topics: ['Android Project Structure', 'AndroidManifest', 'Activity', 'Activity Lifecycle', 'Activity A→B Lifecycle', 'Intent', 'Explicit Intent', 'Implicit Intent', 'Intent Extras', 'XML Layout', 'TextView', 'EditText', 'Button', 'ImageView', 'LinearLayout', 'ConstraintLayout', 'View Binding']
+      },
+      {
+        id: 'android-day-3',
+        title: 'Day 3: RecyclerView + Fragment',
+        titleHi: 'Day 3: RecyclerView + Fragment',
+        icon: '📋',
+        color: '#009688',
+        dayRange: [3, 3],
+        description: {
+          en: 'RecyclerView + Adapter + ViewHolder pattern in depth, performance tuning for large lists, then Fragments — lifecycle, Activity vs Fragment, and navigation.',
+          hi: 'RecyclerView + Adapter + ViewHolder pattern depth me, large lists ke liye performance tuning, फिर Fragments — lifecycle, Activity vs Fragment, और navigation।'
+        },
+        topics: ['RecyclerView', 'Adapter', 'ViewHolder', 'onCreateViewHolder', 'onBindViewHolder', 'getItemCount', 'Multiple Lists', 'RecyclerView Performance', 'Fragment', 'Fragment Lifecycle', 'Activity vs Fragment', 'Fragment Navigation']
+      },
+      {
+        id: 'android-day-4',
+        title: 'Day 4: HTTP + Retrofit + OkHttp',
+        titleHi: 'Day 4: HTTP + Retrofit + OkHttp',
+        icon: '🌐',
+        color: '#FF9800',
+        dayRange: [4, 4],
+        description: {
+          en: 'Client-server model, full HTTP methods (GET/POST/PUT/PATCH/DELETE), headers, body, params, status codes, JSON + Gson, and real Retrofit + OkHttp networking with interceptors and error handling.',
+          hi: 'Client-server model, full HTTP methods (GET/POST/PUT/PATCH/DELETE), headers, body, params, status codes, JSON + Gson, और real Retrofit + OkHttp networking interceptors aur error handling ke saath।'
+        },
+        topics: ['Client-Server', 'HTTP', 'REST API', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'Headers', 'Request Body', 'Query Parameters', 'Path Parameters', 'HTTP Status Codes', 'JSON', 'Gson', 'Retrofit', 'Retrofit GET/POST', 'OkHttp', 'OkHttp Interceptor', 'API Error Handling']
+      },
+      {
+        id: 'android-day-5',
+        title: 'Day 5: JWT + Local Database',
+        titleHi: 'Day 5: JWT + Local Database',
+        icon: '🔐',
+        color: '#9C27B0',
+        dayRange: [5, 5],
+        description: {
+          en: 'Authentication vs authorization, full login flow with JWT + Bearer tokens, secure storage (Android Keystore, SharedPreferences), then Room database — Entity, DAO, CRUD, and combining Room with Retrofit.',
+          hi: 'Authentication vs authorization, JWT + Bearer tokens ke saath full login flow, secure storage (Android Keystore, SharedPreferences), फिर Room database — Entity, DAO, CRUD, और Room ko Retrofit ke saath combine karna।'
+        },
+        topics: ['Authentication', 'Authorization', 'Login Flow', 'JWT', 'Bearer Token', 'Token Expiry', 'Secure Storage', 'Android Keystore', 'SharedPreferences', 'SQLite', 'Room', 'Entity', 'DAO', 'Database', 'CRUD', 'Room + Retrofit']
+      },
+      {
+        id: 'android-day-6',
+        title: 'Day 6: Smart Meter + Offline/Online Sync',
+        titleHi: 'Day 6: Smart Meter + Offline/Online Sync',
+        icon: '⚡',
+        color: '#F44336',
+        dayRange: [6, 6],
+        description: {
+          en: 'Real IoT-style data flow (meter ID, readings, timestamps), offline-first architecture, local caching, sync status (Pending/Success/Failed), retry + duplicate prevention, pagination for large datasets, and WorkManager background sync.',
+          hi: 'Real IoT-style data flow (meter ID, readings, timestamps), offline-first architecture, local caching, sync status (Pending/Success/Failed), retry + duplicate prevention, large datasets ke liye pagination, और WorkManager background sync।'
+        },
+        topics: ['Smart Meter Data Flow', 'Meter ID / Device ID', 'Meter Reading', 'Timestamp', 'Offline Data', 'Online Data', 'Network Connectivity', 'Offline-First Architecture', 'Local Caching', 'Data Sync', 'Pending/Success/Failed Status', 'Retry Mechanism', 'Duplicate Prevention', 'Data Consistency', 'Batch Sync', 'Pagination', 'Large Dataset', 'Room + API Sync', 'WorkManager', 'Background Sync']
+      },
+      {
+        id: 'android-day-7',
+        title: 'Day 7: Architecture + Final Interview',
+        titleHi: 'Day 7: Architecture + Final Interview',
+        icon: '🏗️',
+        color: '#0F9D58',
+        dayRange: [7, 7],
+        description: {
+          en: 'Threading (main thread, ANR, memory leaks), Notifications + Services, Runtime Permissions, full MVVM + Repository architecture, debugging with Logcat + Postman, Git basics, APK vs AAB — capped with mock interview and project-based questions.',
+          hi: 'Threading (main thread, ANR, memory leaks), Notifications + Services, Runtime Permissions, full MVVM + Repository architecture, Logcat + Postman se debugging, Git basics, APK vs AAB — mock interview aur project-based questions ke saath khatam।'
+        },
+        topics: ['Main Thread', 'Background Work', 'ANR', 'Memory Leak', 'Notification', 'NotificationChannel', 'PendingIntent', 'Service', 'Foreground Service', 'Permissions', 'Runtime Permissions', 'MVVM', 'View', 'ViewModel', 'Repository', 'Model', 'Logcat', 'Debugging', 'Postman', 'API Debugging', 'Git Basics', 'APK vs AAB', 'Project Architecture', 'Project-based Questions', 'Coding Questions', 'Mock Interview']
+      }
+    ],
+    projects: [
+      {
+        icon: '🧮',
+        title: 'OOP Practice + First Android App',
+        phase: 'Day 1-2',
+        desc: 'Java OOP concepts modeled as real classes (Employee/BankAccount hierarchy with inheritance + polymorphism), then your first real Android app — Activities, Intents, and an XML UI with View Binding. Sikhoge: clean class design, constructors, encapsulation, and the Activity-Intent flow every Android app is built on.'
+      },
+      {
+        icon: '📝',
+        title: 'Notes App — RecyclerView + Fragments',
+        phase: 'Day 3',
+        desc: 'A notes list app with add/delete, built with RecyclerView + Adapter + ViewHolder, split across a list Fragment and a detail Fragment. Sikhoge: efficient list rendering, ViewHolder recycling, and Fragment-to-Fragment navigation.'
+      },
+      {
+        icon: '⚡',
+        title: 'Capstone — Smart Electricity Meter Management System',
+        phase: 'Day 4-7 (Full Build)',
+        desc: 'A production-style app: JWT login, Retrofit + OkHttp API layer, Room-backed offline-first meter readings with Pending/Synced/Failed status, WorkManager background sync with retry + duplicate prevention, sync-success/failure notifications, and clean MVVM + Repository architecture (Activity/Fragment → ViewModel → Repository → Retrofit/Room). Sikhoge: the exact architecture real Android job interviews test — offline-first design, background sync, and JWT-secured networking end to end.'
+      }
+    ],
+    outcomes: [
+      { icon: '🏗️', text: { en: 'Explain and implement MVVM + Repository pattern — why each layer exists', hi: 'MVVM + Repository pattern implement aur explain kar sakoge — har layer kyun hai' } },
+      { icon: '🔐', text: { en: 'Build JWT-based login with secure token storage (Keystore) and auto-attach it via an OkHttp Interceptor', hi: 'JWT-based login secure token storage (Keystore) ke saath bana sakoge, OkHttp Interceptor se auto-attach karke' } },
+      { icon: '📡', text: { en: 'Design offline-first apps — Room as source of truth, sync status tracking, retry without duplicates', hi: 'Offline-first apps design kar sakoge — Room source of truth, sync status tracking, duplicate ke bina retry' } },
+      { icon: '⏱️', text: { en: 'Run reliable background sync with WorkManager, even after the app is closed', hi: 'WorkManager se reliable background sync chala sakoge, app band hone ke baad bhi' } },
+      { icon: '🔌', text: { en: 'Call REST APIs with Retrofit + OkHttp — all HTTP methods, error handling, timeouts', hi: 'Retrofit + OkHttp se REST APIs call kar sakoge — saare HTTP methods, error handling, timeouts' } },
+      { icon: '📋', text: { en: 'Build smooth, high-performance RecyclerView lists for large datasets with pagination', hi: 'Large datasets ke liye smooth, high-performance RecyclerView lists pagination ke saath bana sakoge' } },
+      { icon: '🧩', text: { en: 'Structure real OOP code — encapsulation, inheritance, polymorphism, interfaces vs abstract classes', hi: 'Real OOP code structure kar sakoge — encapsulation, inheritance, polymorphism, interfaces vs abstract classes' } },
+      { icon: '🐞', text: { en: 'Debug with Logcat + Postman, and confidently answer project-based Android interview questions', hi: 'Logcat + Postman se debug kar sakoge, aur project-based Android interview questions confidently answer kar sakoge' } }
+    ]
+  },
+  {
     id: 'javascript',
     title: 'JavaScript Mastery',
     titleHi: 'जावास्क्रिप्ट मास्टरी',

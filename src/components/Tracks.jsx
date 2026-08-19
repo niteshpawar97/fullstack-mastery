@@ -5,10 +5,17 @@ import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { tracks, getTrackById } from '../data/tracks';
-import { flutterDays, getFlutterContent } from '../data/flutterCourse';
+import { flutterDays, getFlutterContent, hasFlutterContent } from '../data/flutterCourse';
+import { androidDays, getAndroidContent, hasAndroidContent } from '../data/androidCourse';
 
-function Tracks({ lang, dark, onSwitchToFullStack }) {
-  const [selectedTrack, setSelectedTrack] = useState(null);
+// Per-track day-by-day content wiring. Add an entry here when a new track gets day content.
+const trackContentMap = {
+  flutter: { days: flutterDays, getContent: getFlutterContent, hasContent: hasFlutterContent },
+  android: { days: androidDays, getContent: getAndroidContent, hasContent: hasAndroidContent },
+};
+
+function Tracks({ lang, dark, initialTrackId, onSwitchToFullStack }) {
+  const [selectedTrack, setSelectedTrack] = useState(() => initialTrackId || null);
   const showEn = lang === 'both' || lang === 'en';
 
   const cardBg = dark ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200';
@@ -182,14 +189,16 @@ function TrackDetail({ track, lang, dark, onBack }) {
   const sectionTitle = `text-lg font-bold mb-3 ${textPrimary}`;
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const isFlutter = track.id === 'flutter';
-  const dayList = isFlutter ? flutterDays : [];
+  const trackContent = trackContentMap[track.id];
+  const dayList = trackContent?.days || [];
 
   if (selectedDay !== null) {
     return (
       <DayContentViewer
         day={selectedDay}
         track={track}
+        dayList={dayList}
+        getContent={trackContent.getContent}
         dark={dark}
         showEn={showEn}
         onBack={() => setSelectedDay(null)}
@@ -288,14 +297,14 @@ function TrackDetail({ track, lang, dark, onBack }) {
         </div>
       )}
 
-      {/* Day List — Flutter only */}
-      {isFlutter && dayList.length > 0 && (
+      {/* Day List */}
+      {dayList.length > 0 && (
         <div className="mb-6">
           <h2 className={sectionTitle}>📖 {showEn ? 'Day-by-Day Content' : 'Day-by-Day कंटेंट'}</h2>
           <p className={`text-xs mb-3 ${textMuted}`}>
             {showEn
-              ? 'Click any day to read the lesson. Day 1 has full content; Day 2-50 have structured outlines (full content coming).'
-              : 'किसी भी दिन पे click करो lesson पढ़ने के लिए। Day 1 में full content है; Day 2-50 में structured outlines हैं (full content आ रहा है)।'}
+              ? 'Click any day to read the lesson. Days marked "Full" have complete content; "Outline" days list the topics while full content is written.'
+              : 'किसी भी दिन पे click करो lesson पढ़ने के लिए। "Full" वाले days में पूरा content है; "Outline" वाले days में topics list हैं जब तक full content नहीं लिखा जाता।'}
           </p>
           {track.phases.map(phase => {
             const phaseDays = dayList.filter(d => d.phase === phase.id);
@@ -311,7 +320,7 @@ function TrackDetail({ track, lang, dark, onBack }) {
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                   {phaseDays.map(d => {
-                    const isDay1 = d.day === 1;
+                    const isFull = trackContent.hasContent ? trackContent.hasContent(d.day) : true;
                     return (
                       <button
                         key={d.day}
@@ -321,7 +330,7 @@ function TrackDetail({ track, lang, dark, onBack }) {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-bold text-xs" style={{ color: phase.color }}>Day {d.day}</span>
-                          {isDay1 ? (
+                          {isFull ? (
                             <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 font-bold uppercase">Full</span>
                           ) : (
                             <span className="text-[0.55rem] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-500 font-bold uppercase">Outline</span>
@@ -376,24 +385,26 @@ function TrackDetail({ track, lang, dark, onBack }) {
         </div>
       )}
 
-      {/* Coming Soon Notice */}
-      <div className={`rounded-lg border-2 p-4 ${dark ? 'bg-amber-900/20 border-amber-700' : 'bg-amber-50 border-amber-200'}`}>
-        <h3 className={`font-bold text-sm mb-2 ${dark ? 'text-amber-400' : 'text-amber-700'}`}>
-          📢 {showEn ? 'Day-by-Day Content Coming Soon' : 'Day-by-Day Content जल्द आ रहा है'}
-        </h3>
-        <p className={`text-sm ${dark ? 'text-amber-200' : 'text-amber-800'}`}>
-          {showEn
-            ? `Ye roadmap aur syllabus finalize ho chuka hai. ${track.duration.days}-day Hinglish curriculum same teaching style me jaldi launch hoga — morning concept + evening practice format.`
-            : `ये roadmap और syllabus finalize हो चुका है। ${track.duration.days}-day Hinglish curriculum same teaching style में जल्द launch होगा — morning concept + evening practice format।`}
-        </p>
-      </div>
+      {/* Coming Soon Notice — only when this track has no day content wired up yet */}
+      {dayList.length === 0 && (
+        <div className={`rounded-lg border-2 p-4 ${dark ? 'bg-amber-900/20 border-amber-700' : 'bg-amber-50 border-amber-200'}`}>
+          <h3 className={`font-bold text-sm mb-2 ${dark ? 'text-amber-400' : 'text-amber-700'}`}>
+            📢 {showEn ? 'Day-by-Day Content Coming Soon' : 'Day-by-Day Content जल्द आ रहा है'}
+          </h3>
+          <p className={`text-sm ${dark ? 'text-amber-200' : 'text-amber-800'}`}>
+            {showEn
+              ? `Ye roadmap aur syllabus finalize ho chuka hai. ${track.duration.days}-day Hinglish curriculum same teaching style me jaldi launch hoga.`
+              : `ये roadmap और syllabus finalize हो चुका है। ${track.duration.days}-day Hinglish curriculum same teaching style में जल्द launch होगा।`}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
 
-function DayContentViewer({ day, track, dark, showEn, onBack, onPrev, onNext }) {
-  const content = getFlutterContent(day);
-  const dayMeta = flutterDays.find(d => d.day === day);
+function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBack, onPrev, onNext }) {
+  const content = getContent(day);
+  const dayMeta = dayList.find(d => d.day === day);
   const phase = track.phases?.find(p => p.id === dayMeta?.phase);
   const cardBg = dark ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200';
   const textMuted = dark ? 'text-slate-300' : 'text-slate-500';
@@ -474,7 +485,7 @@ function DayContentViewer({ day, track, dark, showEn, onBack, onPrev, onNext }) 
             <span className="text-xs opacity-90">{showEn ? phase.title : phase.titleHi}</span>
             <span className="text-xs opacity-75 ml-2">| Day {phase.dayRange[0]}-{phase.dayRange[1]}</span>
           </div>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-white/25 font-bold">⚡ 2 hrs/day</span>
+          <span className="text-xs px-2 py-0.5 rounded-full bg-white/25 font-bold">⚡ {track.duration?.hoursPerDay || 2} hrs/day</span>
         </div>
       )}
 
