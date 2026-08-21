@@ -2,8 +2,7 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { createBaseMarkdownComponents } from '../utils/markdownComponents';
 import ReadAloud from './ReadAloud';
 import { tracks, getTrackById } from '../data/tracks';
 import { flutterDays, getFlutterContent, hasFlutterContent } from '../data/flutterCourse';
@@ -414,24 +413,7 @@ function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBac
   const textPrimary = dark ? 'text-white' : 'text-slate-800';
 
   const components = {
-    pre: ({ children }) => <div className="overflow-x-auto max-w-full my-4">{children}</div>,
-    code({ className, children, ...props }) {
-      const match = /language-(\w+)/.exec(className || '');
-      const codeString = String(children).replace(/\n$/, '');
-      const inline = !match && !codeString.includes('\n');
-      return inline ? (
-        <code className={`px-1.5 py-0.5 rounded font-mono text-[0.88em] break-words ${dark ? 'bg-indigo-900/50 text-indigo-300' : 'bg-indigo-100 text-indigo-700'}`} {...props}>{children}</code>
-      ) : (
-        <SyntaxHighlighter
-          style={oneDark}
-          language={match ? match[1] : 'text'}
-          PreTag="div"
-          className="rounded-xl! text-sm!"
-        >
-          {codeString}
-        </SyntaxHighlighter>
-      );
-    },
+    ...createBaseMarkdownComponents(dark),
     h1: ({ children }) => <h1 className={`text-2xl sm:text-3xl font-extrabold mt-6 mb-4 ${textPrimary}`}>{children}</h1>,
     h2: ({ children }) => <h2 className={`text-xl sm:text-2xl font-bold mt-6 mb-3 ${textPrimary}`}>{children}</h2>,
     h3: ({ children }) => <h3 className={`text-lg font-bold mt-4 mb-2 ${textPrimary}`}>{children}</h3>,
@@ -440,17 +422,7 @@ function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBac
     ul: ({ children }) => <ul className={`list-disc pl-6 my-3 space-y-1 ${dark ? 'text-slate-200' : 'text-slate-700'}`}>{children}</ul>,
     ol: ({ children }) => <ol className={`list-decimal pl-6 my-3 space-y-1 ${dark ? 'text-slate-200' : 'text-slate-700'}`}>{children}</ol>,
     li: ({ children }) => <li className="leading-relaxed">{children}</li>,
-    blockquote: ({ children }) => (
-      <blockquote className={`border-l-4 pl-4 my-4 py-2 rounded-r-lg ${dark ? 'border-indigo-500 bg-indigo-900/20 text-indigo-100' : 'border-indigo-500 bg-indigo-50 text-indigo-900'}`}>
-        {children}
-      </blockquote>
-    ),
-    table: ({ children }) => <div className="overflow-x-auto my-4"><table className={`min-w-full border ${dark ? 'border-slate-700' : 'border-slate-300'}`}>{children}</table></div>,
-    thead: ({ children }) => <thead className={dark ? 'bg-slate-700' : 'bg-slate-100'}>{children}</thead>,
-    th: ({ children }) => <th className={`px-3 py-2 text-left text-sm font-bold border ${dark ? 'border-slate-600 text-slate-100' : 'border-slate-300 text-slate-800'}`}>{children}</th>,
-    td: ({ children }) => <td className={`px-3 py-2 text-sm border ${dark ? 'border-slate-700 text-slate-200' : 'border-slate-200 text-slate-700'}`}>{children}</td>,
     a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-600 underline">{children}</a>,
-    hr: () => <hr className={`my-6 border-t ${dark ? 'border-slate-700' : 'border-slate-300'}`} />,
     strong: ({ children }) => <strong className={`font-bold ${textPrimary}`}>{children}</strong>,
   };
 
