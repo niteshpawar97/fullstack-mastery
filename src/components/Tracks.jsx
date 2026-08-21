@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ReadAloud from './ReadAloud';
 import { tracks, getTrackById } from '../data/tracks';
 import { flutterDays, getFlutterContent, hasFlutterContent } from '../data/flutterCourse';
 import { androidDays, getAndroidContent, hasAndroidContent } from '../data/androidCourse';
@@ -490,6 +491,9 @@ function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBac
           <span className="text-xs px-2 py-0.5 rounded-full bg-white/25 font-bold">⚡ {track.duration?.hoursPerDay || 2} hrs/day</span>
         </div>
       )}
+
+      {/* Read Aloud */}
+      <ReadAloud text={content} dark={dark} showEn={showEn} defaultVoiceLang={showEn ? 'en-IN' : 'hi-IN'} />
 
       {/* Markdown Content */}
       <article className={`prose-lg ${cardBg} border rounded-xl p-5 sm:p-8`}>

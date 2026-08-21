@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { getTopicById } from '../data/topics';
 import { isComplete } from '../utils/storage';
+import ReadAloud from './ReadAloud';
 
 const calloutConfig = {
   'Yaad Rakho': { icon: '🧠', color: '#3b82f6', bg: '#eff6ff', darkBg: '#1e3a5f', label: 'Yaad Rakho' },
@@ -163,6 +164,9 @@ function Content({ content, dayData, phase, lang, dark, onNavigate, hasPrev, has
           {sessionDone ? '✓ Completed' : 'Mark Done'}
         </button>
       </div>
+
+      {/* Read Aloud */}
+      <ReadAloud text={content.content} dark={dark} showEn={showEn} defaultVoiceLang={showEn ? 'en-IN' : 'hi-IN'} />
 
       {/* Markdown Content */}
       <div className={`leading-7 ${dark ? 'text-slate-200' : 'text-slate-800'}`} ref={contentRef}>
