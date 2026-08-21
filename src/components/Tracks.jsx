@@ -18,8 +18,6 @@ const trackContentMap = {
 function Tracks({ lang, dark, initialTrackId, onSwitchToFullStack }) {
   const [selectedTrack, setSelectedTrack] = useState(() => initialTrackId || null);
   const showEn = lang === 'both' || lang === 'en';
-
-  const cardBg = dark ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200';
   const textMuted = dark ? 'text-slate-300' : 'text-slate-500';
   const textPrimary = dark ? 'text-white' : 'text-slate-800';
 
@@ -96,7 +94,6 @@ function TrackCard({ track, lang, dark, onOpen }) {
 
   const cardBg = dark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200';
   const textMuted = dark ? 'text-slate-300' : 'text-slate-500';
-  const textPrimary = dark ? 'text-white' : 'text-slate-800';
 
   const badge = isActive
     ? { text: showEn ? 'Active' : 'सक्रिय', color: '#10b981' }
@@ -133,11 +130,17 @@ function TrackCard({ track, lang, dark, onOpen }) {
           </p>
         )}
 
+        {isSoon && (
+          <p className={`text-xs mb-3 italic ${textMuted}`}>
+            📝 {showEn ? 'Planned roadmap — no lessons written yet' : 'Planned roadmap — abhi tak koi lesson likha nahi gaya'}
+          </p>
+        )}
+
         {/* Stats */}
         {track.duration && (
           <div className="flex flex-wrap gap-2 mb-4">
             <span className={`text-xs px-2 py-1 rounded-md font-semibold ${dark ? 'bg-slate-700 text-slate-200' : 'bg-slate-100 text-slate-700'}`}>
-              📅 {track.duration.days} {showEn ? 'days' : 'दिन'}
+              📅 {track.duration.days} {showEn ? 'days' : 'दिन'} {isSoon && '(planned)'}
             </span>
             {track.duration.hoursPerDay && (
               <span className={`text-xs px-2 py-1 rounded-md font-semibold ${dark ? 'bg-emerald-700/40 text-emerald-300' : 'bg-emerald-100 text-emerald-700'}`}>
@@ -408,7 +411,6 @@ function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBac
   const dayMeta = dayList.find(d => d.day === day);
   const phase = track.phases?.find(p => p.id === dayMeta?.phase);
   const cardBg = dark ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200';
-  const textMuted = dark ? 'text-slate-300' : 'text-slate-500';
   const textPrimary = dark ? 'text-white' : 'text-slate-800';
 
   const components = {

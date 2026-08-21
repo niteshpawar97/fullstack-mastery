@@ -14,6 +14,12 @@ function Sidebar({
 
   const showEn = lang === 'both' || lang === 'en';
   const currentTrack = currentTrackId ? getTrackById(currentTrackId) : null;
+  const isFullStackTrack = !currentTrackId || currentTrackId === 'fullstack';
+  const headerIcon = currentTrack?.icon || '🚀';
+  const headerTitle = currentTrack ? (showEn ? currentTrack.title : currentTrack.titleHi) : 'Full Stack Mastery';
+  const headerSubtitle = currentTrack?.duration
+    ? `${currentTrack.duration.days} ${showEn ? 'Day Program' : 'दिन का प्रोग्राम'}`
+    : (showEn ? '90-Day Program' : '90-दिन प्रोग्राम');
 
   // Group days by phase and week
   const phaseWeeks = useMemo(() => {
@@ -37,10 +43,10 @@ function Sidebar({
       {/* Header + Close */}
       <div className="flex items-center justify-between px-4 py-4 border-b border-white/10 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
-          <span className="text-2xl shrink-0">🚀</span>
+          <span className="text-2xl shrink-0">{headerIcon}</span>
           <div className="min-w-0">
-            <h1 className="text-sm font-bold leading-tight truncate">Full Stack Mastery</h1>
-            <p className="text-[0.65rem] opacity-50">90-Day Program</p>
+            <h1 className="text-sm font-bold leading-tight truncate">{headerTitle}</h1>
+            <p className="text-[0.65rem] opacity-50">{headerSubtitle}</p>
           </div>
         </div>
         <div className="flex items-center gap-1 shrink-0">
@@ -49,6 +55,7 @@ function Sidebar({
             className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors text-sm cursor-pointer border-0"
             onClick={() => setDark(!dark)}
             title={dark ? 'Light Mode' : 'Dark Mode'}
+            aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {dark ? '☀️' : '🌙'}
           </button>
@@ -56,6 +63,7 @@ function Sidebar({
           <button
             className="w-8 h-8 rounded-lg items-center justify-center bg-white/10 hover:bg-white/20 transition-colors cursor-pointer border-0 text-slate-200 text-sm hidden max-lg:flex"
             onClick={onToggle}
+            aria-label={showEn ? 'Close menu' : 'मेनू बंद करो'}
           >
             ✕
           </button>
@@ -95,7 +103,16 @@ function Sidebar({
 
       <div className="border-t border-white/8 mx-3 my-1"></div>
 
-      {/* Navigation: Phase > Week > Day > Session */}
+      {/* Phase/Week/Day nav is Full Stack-specific — Flutter/Android browse via Learning Tracks instead */}
+      {!isFullStackTrack ? (
+        <div className="flex-1 overflow-y-auto px-4 py-6 text-center">
+          <p className="text-xs text-slate-400 leading-relaxed">
+            {showEn
+              ? `${currentTrack?.title || 'Ye track'} ka poora roadmap "Learning Tracks" me dekho.`
+              : `${currentTrack?.titleHi || 'Ye track'} ka poora roadmap "Learning Tracks" me dekho.`}
+          </p>
+        </div>
+      ) : (
       <nav className="flex-1 overflow-y-auto py-1">
         {phases.map(phase => {
           const isPhaseOpen = expandedPhase === phase.id;
@@ -137,9 +154,6 @@ function Sidebar({
 
                     {/* Days inside week */}
                     {isWeekOpen && weekDays.map(day => {
-                      const dayDone = isDayComplete(progress, day.day);
-                      const isSelected = selectedDay === day.day;
-
                       return (
                         <div key={day.day}>
                           {/* Day */}
@@ -187,6 +201,7 @@ function Sidebar({
           );
         })}
       </nav>
+      )}
 
       {/* Footer */}
       <div className="px-3 py-3 border-t border-white/10 shrink-0">
@@ -195,6 +210,7 @@ function Sidebar({
             className="flex items-center justify-between w-full px-2.5 py-2 rounded-lg text-[0.72rem] font-medium cursor-pointer border-0 bg-white/5 hover:bg-white/10 transition-all text-left mb-2"
             onClick={onChangeTrack}
             title={showEn ? 'Change learning track' : 'लर्निंग track बदलो'}
+            aria-label={showEn ? 'Change learning track' : 'लर्निंग track बदलो'}
           >
             <span className="flex items-center gap-1.5 min-w-0 text-slate-300">
               <span>{currentTrack.icon}</span>

@@ -102,11 +102,6 @@ function App() {
     return allSessions[currentSessionIndex];
   }, [currentSessionIndex]);
 
-  const currentDayData = useMemo(() => {
-    if (!selectedDay) return null;
-    return days.find(d => d.day === selectedDay);
-  }, [selectedDay]);
-
   const completedDays = useMemo(() => {
     return days.filter(d => isDayComplete(progress, d.day)).length;
   }, [progress]);
@@ -126,7 +121,6 @@ function App() {
         return currentContent ? (
           <Content
             content={currentContent}
-            dayData={currentDayData}
             phase={getPhaseForDay(selectedDay)}
             lang={lang}
             dark={dark}
@@ -196,6 +190,7 @@ function App() {
           <button
             className="fixed top-4 left-4 z-80 w-11 h-11 rounded-xl bg-sidebar flex flex-col justify-center items-center gap-1.5 shadow-lg border-0 cursor-pointer"
             onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
           >
             <span className="block w-5.5 h-0.5 bg-slate-200 rounded-sm"></span>
             <span className="block w-5.5 h-0.5 bg-slate-200 rounded-sm"></span>

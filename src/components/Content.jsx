@@ -119,7 +119,7 @@ function createMarkdownComponents(dark) {
   };
 }
 
-function Content({ content, dayData, phase, lang, dark, onNavigate, hasPrev, hasNext, progress, onToggleComplete }) {
+function Content({ content, phase, lang, dark, onNavigate, hasPrev, hasNext, progress, onToggleComplete }) {
   const contentRef = useRef(null);
   const showEn = lang === 'both' || lang === 'en';
   const sessionDone = isComplete(progress, content.day, content.session);

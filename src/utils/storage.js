@@ -2,6 +2,26 @@ const PROGRESS_KEY = 'fsm-progress';
 const THEME_KEY = 'fsm-theme';
 const ONBOARD_KEY = 'fsm-onboard-track';
 
+// localStorage can throw (private browsing, quota exceeded, disabled) — every write
+// goes through here so a blocked storage backend degrades silently instead of crashing.
+function safeSetItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function safeRemoveItem(key) {
+  try {
+    localStorage.removeItem(key);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function getProgress() {
   try {
     return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
@@ -12,14 +32,14 @@ export function markComplete(day, session) {
   const progress = getProgress();
   const key = `${day}-${session}`;
   progress[key] = Date.now();
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  safeSetItem(PROGRESS_KEY, JSON.stringify(progress));
   return progress;
 }
 
 export function unmarkComplete(day, session) {
   const progress = getProgress();
   delete progress[`${day}-${session}`];
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  safeSetItem(PROGRESS_KEY, JSON.stringify(progress));
   return progress;
 }
 
@@ -42,7 +62,7 @@ export function getTheme() {
 }
 
 export function setTheme(theme) {
-  localStorage.setItem(THEME_KEY, theme);
+  safeSetItem(THEME_KEY, theme);
 }
 
 export function getOnboardedTrack() {
@@ -52,9 +72,9 @@ export function getOnboardedTrack() {
 }
 
 export function setOnboardedTrack(trackId) {
-  localStorage.setItem(ONBOARD_KEY, trackId);
+  safeSetItem(ONBOARD_KEY, trackId);
 }
 
 export function clearOnboardedTrack() {
-  localStorage.removeItem(ONBOARD_KEY);
+  safeRemoveItem(ONBOARD_KEY);
 }

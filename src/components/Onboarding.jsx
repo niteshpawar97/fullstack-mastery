@@ -69,7 +69,7 @@ function Onboarding({ lang, dark, setLang, onSelectTrack }) {
                   </p>
                   {track.duration && (
                     <p className="text-[0.7rem] mt-2 font-semibold" style={{ color: track.color }}>
-                      📅 {track.duration.days} {showEn ? 'days' : 'दिन'}
+                      📅 {track.duration.days} {showEn ? 'days' : 'दिन'} {isSoon && '(planned)'}
                     </p>
                   )}
                 </div>
