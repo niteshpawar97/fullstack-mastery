@@ -411,19 +411,21 @@ function DayContentViewer({ day, track, dayList, getContent, dark, showEn, onBac
   const textPrimary = dark ? 'text-white' : 'text-slate-800';
 
   const components = {
+    pre: ({ children }) => <div className="overflow-x-auto max-w-full my-4">{children}</div>,
     code({ className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
-      const inline = !match && !className;
+      const codeString = String(children).replace(/\n$/, '');
+      const inline = !match && !codeString.includes('\n');
       return inline ? (
-        <code className={`px-1.5 py-0.5 rounded font-mono text-[0.88em] ${dark ? 'bg-indigo-900/50 text-indigo-300' : 'bg-indigo-100 text-indigo-700'}`} {...props}>{children}</code>
+        <code className={`px-1.5 py-0.5 rounded font-mono text-[0.88em] break-words ${dark ? 'bg-indigo-900/50 text-indigo-300' : 'bg-indigo-100 text-indigo-700'}`} {...props}>{children}</code>
       ) : (
         <SyntaxHighlighter
           style={oneDark}
           language={match ? match[1] : 'text'}
           PreTag="div"
-          className="rounded-xl! my-4! text-sm!"
+          className="rounded-xl! text-sm!"
         >
-          {String(children).replace(/\n$/, '')}
+          {codeString}
         </SyntaxHighlighter>
       );
     },
