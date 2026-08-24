@@ -325,6 +325,20 @@ export const tracks = [
           hi: 'Threading (main thread, ANR, memory leaks), Notifications + Services, Runtime Permissions, full MVVM + Repository architecture, Logcat + Postman se debugging, Git basics, APK vs AAB — mock interview aur project-based questions ke saath khatam।'
         },
         topics: ['Main Thread', 'Background Work', 'ANR', 'Memory Leak', 'Notification', 'NotificationChannel', 'PendingIntent', 'Service', 'Foreground Service', 'Permissions', 'Runtime Permissions', 'MVVM', 'View', 'ViewModel', 'Repository', 'Model', 'Logcat', 'Debugging', 'Postman', 'API Debugging', 'Git Basics', 'APK vs AAB', 'Project Architecture', 'Project-based Questions', 'Coding Questions', 'Mock Interview']
+      },
+      {
+        id: 'android-day-8',
+        title: 'Bonus: Capstone Build Guide (Scratch to Finish)',
+        titleHi: 'Bonus: Capstone Build Guide (Scratch se Finish tak)',
+        icon: '🚀',
+        color: '#673AB7',
+        dayRange: [8, 8],
+        isOptional: true,
+        description: {
+          en: 'Days 1-7 taught concepts with scattered snippets — this bonus day assembles all of it into one linear, buildable walkthrough: Android Studio project setup, full package structure, and every file created in the correct dependency order so the Smart Meter app actually compiles and runs end to end.',
+          hi: 'Day 1-7 me concepts bikhre hue snippets ke saath sikhaye — ye bonus din un sabko ek linear, buildable walkthrough me jodta hai: Android Studio project setup, poori package structure, aur har file sahi dependency order me banai jaati hai taaki Smart Meter app actually compile aur run ho end to end।'
+        },
+        topics: ['Project Setup', 'Package Structure', 'Gradle Dependencies', 'Build Order', 'Model Layer', 'Room Layer', 'Retrofit Layer', 'Repository Layer', 'ViewModel Layer', 'UI Layer', 'WorkManager Wiring', 'End-to-End Run']
       }
     ],
     projects: [
