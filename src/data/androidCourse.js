@@ -21,6 +21,7 @@ export const androidDays = [
   { day: 6, phase: 'android-day-6', title: 'Smart Meter + Offline/Online Sync' },
   { day: 7, phase: 'android-day-7', title: 'Architecture + Final Interview' },
   { day: 8, phase: 'android-day-8', title: 'BONUS — Capstone Build Guide (Scratch to Finish)' },
+  { day: 9, phase: 'android-day-9', title: 'BONUS — PHP + MySQL Backend API' },
 ];
 
 export function getAndroidDay(dayNum) {

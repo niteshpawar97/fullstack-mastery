@@ -339,6 +339,20 @@ export const tracks = [
           hi: 'Day 1-7 me concepts bikhre hue snippets ke saath sikhaye — ye bonus din un sabko ek linear, buildable walkthrough me jodta hai: Android Studio project setup, poori package structure, aur har file sahi dependency order me banai jaati hai taaki Smart Meter app actually compile aur run ho end to end।'
         },
         topics: ['Project Setup', 'Package Structure', 'Gradle Dependencies', 'Build Order', 'Model Layer', 'Room Layer', 'Retrofit Layer', 'Repository Layer', 'ViewModel Layer', 'UI Layer', 'WorkManager Wiring', 'End-to-End Run']
+      },
+      {
+        id: 'android-day-9',
+        title: 'Bonus: PHP + MySQL Backend API',
+        titleHi: 'Bonus: PHP + MySQL Backend API',
+        icon: '🐘',
+        color: '#4F5B93',
+        dayRange: [9, 9],
+        isOptional: true,
+        description: {
+          en: 'Day 8 built the Android app against a fictional api.smartmeter.com. This day builds a real, working PHP + MySQL backend matching that exact API contract — login/JWT, get readings, submit reading — so the whole project actually runs end to end.',
+          hi: 'Day 8 me Android app ek fictional api.smartmeter.com ke against banaya tha. Ye din ek real, chalne wala PHP + MySQL backend banata hai wahi exact API contract ke saath — login/JWT, readings lena, reading submit karna — taaki poora project actually end-to-end chale।'
+        },
+        topics: ['MySQL Schema', 'PDO Connection', 'Password Hashing', 'Manual JWT (PHP)', 'Login Endpoint', 'GET Readings Endpoint', 'POST Reading Endpoint', 'Duplicate Prevention (DB)', 'Postman Testing', 'Connecting Android to Local Backend']
       }
     ],
     projects: [
